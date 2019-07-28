@@ -1,7 +1,7 @@
 package isi.died.tp.dominio;
 
 public class InsumoLiquido extends Insumo {
-
+	
 	private double densidad;
 	
 	public InsumoLiquido(int stock){
@@ -12,7 +12,7 @@ public class InsumoLiquido extends Insumo {
 		super(i,des,planta,s,vol*den,costo,ref,u);
 		this.densidad=den;
 	}
-
+	
 	public double getDensidad() {return densidad;}
 	public void setDensidad(double densidad) {this.densidad = densidad;}
 }
