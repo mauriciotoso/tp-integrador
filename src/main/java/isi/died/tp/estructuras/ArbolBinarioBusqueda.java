@@ -29,6 +29,11 @@ public class ArbolBinarioBusqueda<E extends Comparable<E>> extends Arbol<E> {
 	}
 	
 	@Override
+	public String toString() {
+		return this.valor +" ( "+ this.izquierdo.toString() +", "+this.derecho.toString()+ ") ";
+	}
+	
+	@Override
 	public List<E> preOrden() {
 		List<E> lista = new ArrayList<E>();
 		lista.add(this.valor);
@@ -143,33 +148,39 @@ public class ArbolBinarioBusqueda<E extends Comparable<E>> extends Arbol<E> {
 		else return false;
 	}
 	
-	public ArrayList<E> rango(int ini ,int fin){
+	public ArrayList<E> rango(String nombre, int stockMin,int stockMax, double costoMin, double costoMax){
 		
 		ArrayList<E> lista = new ArrayList<E>();
-		lista=rangoAux(ini, fin,lista);
+		System.out.println("2. Stock Minimo: "+stockMin+" Stock Maximo: "+stockMax+" Costo Minimo: "+costoMin+" Costo Maximo: "+ costoMax);
+		
+		lista=rangoAux(nombre,stockMin,stockMax,costoMin,costoMax,lista);
 		Collections.sort(lista);
 		
 		return lista;
 	}
 	
-	public ArrayList<E> rangoAux(int ini,int fin,ArrayList<E> lista) {
+	public ArrayList<E> rangoAux(String nombre, int stockMin,int stockMax, double costoMin, double costoMax,ArrayList<E> lista) {
 		
 		if(this.izquierdo.esVacio()&&this.derecho.esVacio()) {
-			if (((Insumo) this.valor).getStock() >= ini  && ((Insumo) this.valor).getStock() <= fin) {lista.add(valor);}
+			if (((Insumo) this.valor).getStock() >= stockMin  && ((Insumo) this.valor).getStock() <= stockMax && 
+				((Insumo) this.valor).getCosto() >= costoMin  && ((Insumo) this.valor).getCosto() <= costoMax) {if(((Insumo) this.valor).nombreParecido(nombre)) lista.add(valor);}
 		}
 		
-		else if (((Insumo) this.valor).getStock() < ini) {
-			lista = this.derecho.rangoAux(ini ,fin,lista);
+		else if (((Insumo) this.valor).getStock() < stockMin || 
+				(((Insumo) this.valor).getStock() < stockMin && ((Insumo) this.valor).getCosto() < costoMin)) {
+				lista = this.derecho.rangoAux(nombre,stockMin,stockMax,costoMin,costoMax,lista);
 		}
 		
-		else if (((Insumo) this.valor).getStock() > fin) {
-			lista = this.izquierdo.rangoAux(ini ,fin,lista);
+		else if (((Insumo) this.valor).getStock() > stockMax || 
+				(((Insumo) this.valor).getStock() > stockMax && ((Insumo) this.valor).getCosto() > costoMax)){
+			lista = this.izquierdo.rangoAux(nombre,stockMin,stockMax,costoMin,costoMax,lista);
 		}
 		
-		else if (((Insumo) this.valor).getStock() >= ini  && ((Insumo) this.valor).getStock() <= fin) {
-			lista.add(valor);
-			lista = this.derecho.rangoAux(ini,fin,lista);
-			lista = this.izquierdo.rangoAux(ini,fin,lista);
+		else if (((Insumo) this.valor).getStock() >= stockMin  && ((Insumo) this.valor).getStock() <= stockMax && 
+				((Insumo) this.valor).getCosto() >= costoMin  && ((Insumo) this.valor).getCosto() <= costoMax) {
+			if(((Insumo) this.valor).nombreParecido(nombre)) lista.add(valor);
+			lista = this.derecho.rangoAux(nombre,stockMin,stockMax,costoMin,costoMax,lista);
+			lista = this.izquierdo.rangoAux(nombre,stockMin,stockMax,costoMin,costoMax,lista);
 		}
 		
 		return lista;

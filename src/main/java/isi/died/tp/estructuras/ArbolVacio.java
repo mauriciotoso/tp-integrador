@@ -4,7 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ArbolVacio<E extends Comparable<E>> extends Arbol<E> {
-
+	
+	public String toString() {
+		return "";
+	}
+	
 	public ArbolVacio(){
 		this.valor=null;
 	}
@@ -78,12 +82,13 @@ public class ArbolVacio<E extends Comparable<E>> extends Arbol<E> {
 	public boolean esLleno() {
 		return false;
 	}
-
-	public ArrayList<E> rango(int ini ,int fin){
-		return new ArrayList<E>();
-	}
 	
-	protected ArrayList<E> rangoAux(int ini, int fin, ArrayList<E> lista) {
+	protected ArrayList<E> rangoAux(String nombre, int stockMin,int stockMax, double costoMin, double costoMax, ArrayList<E> lista) {
 		return lista;
+	}
+
+	@Override
+	protected Object rango(String nombre, int stockMin, int stockMax, double costoMin, double costoMax) {
+		return new ArrayList<E>();
 	}
 }

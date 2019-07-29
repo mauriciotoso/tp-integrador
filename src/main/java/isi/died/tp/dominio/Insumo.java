@@ -40,14 +40,28 @@ public class Insumo implements Comparable <Insumo> {
 	public void setEsRefrigerado(boolean esRefrigerado) {this.esRefrigerado = esRefrigerado;}
 	public UnidadMedida getUnidad() {return unidad;}
 	public void setUnidad(UnidadMedida unidad) {this.unidad = unidad;}
+	
+	@Override
+	public String toString() {
+		return "Insumo [id=" + id + "]";
+	}
 
 	public int compareTo(Insumo in) {
 		if (this.stock>in.getStock()) return 1;
 		else if (this.stock<in.getStock()) return -1;
-		else return 0;	
+		else if (this.costo>in.getCosto()) return 1;
+		else if (this.costo<in.getCosto()) return -1;
+		else return this.descripcion.compareTo(in.getDescripcion());	
 	}
 	
 	public double pesoPorStock() {
 		return stock*peso;
-	}	
+	}
+	
+	public boolean nombreParecido(String nombre) {
+		if(nombre=="") return true;
+		else if(this.getDescripcion().length()<nombre.length()) return false;
+		else if(this.getDescripcion().substring(0, nombre.length()).compareTo(nombre)==0) return true;
+		else return false;
+	}
 }
