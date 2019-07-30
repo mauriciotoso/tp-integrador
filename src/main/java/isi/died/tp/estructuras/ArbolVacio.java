@@ -83,10 +83,14 @@ public class ArbolVacio<E extends Comparable<E>> extends Arbol<E> {
 		return false;
 	}
 	
-	protected ArrayList<E> rangoAux(String nombre, int stockMin,int stockMax, double costoMin, double costoMax, ArrayList<E> lista) {
+	protected ArrayList<E> rangoStock(String nombre, int stockMin,int stockMax, ArrayList<E> lista) {
 		return lista;
 	}
-
+	
+	protected ArrayList<E> rangoCosto(String nombre,double costoMin, double costoMax, ArrayList<E> lista) {
+		return lista;
+	}
+	
 	@Override
 	protected Object rango(String nombre, int stockMin, int stockMax, double costoMin, double costoMax) {
 		return new ArrayList<E>();

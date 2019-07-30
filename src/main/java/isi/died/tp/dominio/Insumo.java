@@ -2,7 +2,7 @@ package isi.died.tp.dominio;
 
 public class Insumo implements Comparable <Insumo> {
 	
-	protected int id;
+	protected String id;
 	protected String descripcion;
 	protected String planta;
 	protected int stock;
@@ -11,7 +11,7 @@ public class Insumo implements Comparable <Insumo> {
 	protected boolean esRefrigerado;
 	protected UnidadMedida unidad;	
 	
-	public Insumo(int i,String des,String planta, int s,double peso,double costo,boolean ref,UnidadMedida u){
+	public Insumo(String i,String des,String planta, int s,double peso,double costo,boolean ref,UnidadMedida u){
 		this.id=i;
 		this.descripcion=des;
 		this.planta=planta;
@@ -24,8 +24,8 @@ public class Insumo implements Comparable <Insumo> {
 	
 	public Insumo(int stock){this.stock=stock;}
 	
-	public int getId() {return id;}
-	public void setId(int id) {this.id = id;}
+	public String getId() {return id;}
+	public void setId(String id) {this.id = id;}
 	public String getDescripcion() {return descripcion;}
 	public void setDescripcion(String descripcion) {this.descripcion = descripcion;}
 	public String getPlanta() {return planta;}

@@ -40,6 +40,7 @@ public class BuscarInsumos {
     private JTextField tfStockMax;
     private JTable busqueda;
     private ListSelectionModel model;
+    private Insumo seleccion;
 	
     /**
 	 * Launch the application.
@@ -149,6 +150,7 @@ public class BuscarInsumos {
 		model=busqueda.getSelectionModel();
 		busqueda.setAutoCreateRowSorter(true);
 		scrollPane.setViewportView(busqueda);
+		busqueda.editingCanceled(null);
 		
 		tfStockMax = new JTextField();
 		tfStockMax.setColumns(10);
@@ -156,9 +158,17 @@ public class BuscarInsumos {
 		frame.getContentPane().add(tfStockMax);
 		
 		JButton editar = new JButton("Editar");
+		editar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				EditarInsumo eInsumo = new EditarInsumo(seleccion);
+				eInsumo.main(seleccion);
+				frame.dispose();
+			}
+		});
 		editar.setBounds(337, 276, 100, 25);
 		frame.getContentPane().add(editar);
 		editar.setEnabled(false);		
+		
 		
 		tfDescripcion.addKeyListener(new KeyAdapter() {
 			@Override
@@ -177,9 +187,12 @@ public class BuscarInsumos {
 						if(!model.isSelectionEmpty()) {
 							editar.setEnabled(true);
 							borrar.setEnabled(true);
-							//System.out.println(model.getMinSelectionIndex());
-							//System.out.println("Nombre="+tfDescripcion.getText()+" Costo Min="+tfCostoMin.getText()+" Costo Max="+tfCostoMax.getText()+" Stock Min="+tfStockMin.getText()+" Stock Max="+tfStockMax.getText());
 							
+							String aux1=(String) busqueda.getValueAt(model.getMinSelectionIndex(), 0);
+							Double aux2=(Double) busqueda.getValueAt(model.getMinSelectionIndex(), 1);
+							Integer aux3=(Integer) busqueda.getValueAt(model.getMinSelectionIndex(), 2);
+
+							seleccion=(new Listas()).buscarInsumo(aux1,aux2,aux3);
 						}
 					}
 				});
@@ -202,9 +215,12 @@ public class BuscarInsumos {
 						if(!model.isSelectionEmpty()) {
 							editar.setEnabled(true);
 							borrar.setEnabled(true);
-							//System.out.println(model.getMinSelectionIndex());
-							//System.out.println("Nombre="+tfDescripcion.getText()+" Costo Min="+tfCostoMin.getText()+" Costo Max="+tfCostoMax.getText()+" Stock Min="+tfStockMin.getText()+" Stock Max="+tfStockMax.getText());
 							
+							String aux1=(String) busqueda.getValueAt(model.getMinSelectionIndex(), 0);
+							Double aux2=(Double) busqueda.getValueAt(model.getMinSelectionIndex(), 1);
+							Integer aux3=(Integer) busqueda.getValueAt(model.getMinSelectionIndex(), 2);
+
+							seleccion=(new Listas()).buscarInsumo(aux1,aux2,aux3);
 						}
 					}
 				});
@@ -227,9 +243,12 @@ public class BuscarInsumos {
 						if(!model.isSelectionEmpty()) {
 							editar.setEnabled(true);
 							borrar.setEnabled(true);
-							//System.out.println(model.getMinSelectionIndex());
-							//System.out.println("Nombre="+tfDescripcion.getText()+" Costo Min="+tfCostoMin.getText()+" Costo Max="+tfCostoMax.getText()+" Stock Min="+tfStockMin.getText()+" Stock Max="+tfStockMax.getText());
-							
+
+							String aux1=(String) busqueda.getValueAt(model.getMinSelectionIndex(), 0);
+							Double aux2=(Double) busqueda.getValueAt(model.getMinSelectionIndex(), 1);
+							Integer aux3=(Integer) busqueda.getValueAt(model.getMinSelectionIndex(), 2);
+
+							seleccion=(new Listas()).buscarInsumo(aux1,aux2,aux3);
 						}
 					}
 				});
@@ -252,8 +271,12 @@ public class BuscarInsumos {
 						if(!model.isSelectionEmpty()) {
 							editar.setEnabled(true);
 							borrar.setEnabled(true);
-						//	System.out.println(model.getMinSelectionIndex());
-						//	System.out.println("Nombre="+tfDescripcion.getText()+" Costo Min="+tfCostoMin.getText()+" Costo Max="+tfCostoMax.getText()+" Stock Min="+tfStockMin.getText()+" Stock Max="+tfStockMax.getText());
+							
+							String aux1=(String) busqueda.getValueAt(model.getMinSelectionIndex(), 0);
+							Double aux2=(Double) busqueda.getValueAt(model.getMinSelectionIndex(), 1);
+							Integer aux3=(Integer) busqueda.getValueAt(model.getMinSelectionIndex(), 2);
+
+							seleccion=(new Listas()).buscarInsumo(aux1,aux2,aux3);	
 						}
 					}
 				});
@@ -277,9 +300,12 @@ public class BuscarInsumos {
 						if(!model.isSelectionEmpty()) {						
 							editar.setEnabled(true);
 							borrar.setEnabled(true);
-							System.out.println(model.getMinSelectionIndex());
-							System.out.println("Nombre="+tfDescripcion.getText()+" Costo Min="+tfCostoMin.getText()+" Costo Max="+tfCostoMax.getText()+" Stock Min="+tfStockMin.getText()+" Stock Max="+tfStockMax.getText());
 							
+							String aux1=(String) busqueda.getValueAt(model.getMinSelectionIndex(), 0);
+							Double aux2=(Double) busqueda.getValueAt(model.getMinSelectionIndex(), 1);
+							Integer aux3=(Integer) busqueda.getValueAt(model.getMinSelectionIndex(), 2);
+
+							seleccion=(new Listas()).buscarInsumo(aux1,aux2,aux3);
 						}
 					}
 				});
@@ -293,8 +319,11 @@ public class BuscarInsumos {
 					editar.setEnabled(true);
 					borrar.setEnabled(true);
 					
-					System.out.println(model.getMinSelectionIndex());
-					System.out.println("Nombre="+tfDescripcion.getText()+" Costo Min="+tfCostoMin.getText()+" Costo Max="+tfCostoMax.getText()+" Stock Min="+tfStockMin.getText()+" Stock Max="+tfStockMax.getText());
+					String aux1=(String) busqueda.getValueAt(model.getMinSelectionIndex(), 0);
+					Double aux2=(Double) busqueda.getValueAt(model.getMinSelectionIndex(), 1);
+					Integer aux3=(Integer) busqueda.getValueAt(model.getMinSelectionIndex(), 2);
+
+					seleccion=(new Listas()).buscarInsumo(aux1,aux2,aux3);	
 				}
 			}
 		});
@@ -323,7 +352,7 @@ public class BuscarInsumos {
 		costoMin=Double.parseDouble(cMin);
 		costoMax=Double.parseDouble(cMax);
 		
-		System.out.println("1. Stock Minimo: "+stockMin+" Stock Maximo: "+stockMax+" Costo Minimo: "+costoMin+" Costo Maximo: "+ costoMax);
+		System.out.println("\n1. Stock Minimo: "+stockMin+" Stock Maximo: "+stockMax+" Costo Minimo: "+costoMin+" Costo Maximo: "+ costoMax);
 		
 		
 		ArrayList<Insumo> listaInsumos=arbolDatos.rango(des,stockMin,stockMax,costoMin,costoMax);

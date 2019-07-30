@@ -33,7 +33,7 @@ public class GestionInsumos {
 	public GestionInsumos() {
 		initialize();
 	}
-
+	
 	/**
 	 * Initialize the contents of the frame.
 	 */
@@ -55,11 +55,15 @@ public class GestionInsumos {
 		btnCrearInsumo.setBounds(143, 68, 140, 40);
 		frame.getContentPane().add(btnCrearInsumo);
 		
-		JButton btnBucarInsumo = new JButton("Bucar Insumo");
+		JButton btnBucarInsumo = new JButton("Buscar Insumo");
 		btnBucarInsumo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				BuscarInsumos bInsumo=new BuscarInsumos();
+				bInsumo.main(null);
+				frame.dispose();
 			}
 		});
+		
 		btnBucarInsumo.setBounds(143, 132, 140, 40);
 		frame.getContentPane().add(btnBucarInsumo);
 		
@@ -67,7 +71,7 @@ public class GestionInsumos {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				PantallaPrincipal principal =new PantallaPrincipal();
+				Principal principal =new Principal();
 				principal.main(null);
 				frame.dispose();
 			

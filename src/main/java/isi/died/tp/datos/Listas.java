@@ -16,18 +16,18 @@ public class Listas {
 		listaCamiones = new ArrayList<Camion>();
 		listaStocks = new ArrayList<Stock>();
 		
-		Insumo i1=new Insumo(0,"I1","Planta A",500,5.6,5000,false,UnidadMedida.UNIDAD);
-		Insumo i2=new Insumo(1,"I2","Planta A",600,2.4,6000,false,UnidadMedida.UNIDAD);
-		Insumo i3=new Insumo(2,"I3","Planta B",1100,2,5000,false,UnidadMedida.UNIDAD);
-		Insumo i4=new Insumo(3,"I4","Planta B",200,1,100,false,UnidadMedida.UNIDAD);
-		Insumo i5=new Insumo(4,"I5","Planta C",100,5.6,200,false,UnidadMedida.UNIDAD);
-		Insumo i6=new Insumo(5,"I6","Planta D",600,2.4,40,false,UnidadMedida.UNIDAD);
-		Insumo i7=new Insumo(6,"I1","Planta E",6100,2,5400,false,UnidadMedida.UNIDAD);
-		Insumo i8=new Insumo(7,"I7","Planta E",700,1,700,false,UnidadMedida.UNIDAD);
-		Insumo i9=new Insumo(8,"I8","Planta A",500,5.6,1000,false,UnidadMedida.UNIDAD);
-		Insumo i10=new Insumo(9,"I2","Planta C",600,2.4,2000,false,UnidadMedida.UNIDAD);
-		Insumo i11=new Insumo(10,"I9","Planta C",700,2,700,false,UnidadMedida.UNIDAD);
-		Insumo i12=new Insumo(11,"I10","Planta F",300,1,300,false,UnidadMedida.UNIDAD);
+		Insumo i1=new Insumo("0","I1","Planta A",500,5.6,5000,false,UnidadMedida.UNIDAD);
+		Insumo i2=new Insumo("1","I2","Planta A",600,2.4,6000,false,UnidadMedida.UNIDAD);
+		Insumo i3=new Insumo("2","I3","Planta B",1100,2,5000,false,UnidadMedida.UNIDAD);
+		Insumo i4=new Insumo("3","I4","Planta B",200,1,100,false,UnidadMedida.UNIDAD);
+		Insumo i5=new Insumo("4","I5","Planta C",100,5.6,200,false,UnidadMedida.UNIDAD);
+		Insumo i6=new Insumo("5","I6","Planta D",600,2.4,40,false,UnidadMedida.UNIDAD);
+		Insumo i7=new Insumo("6","I1","Planta E",6100,2,5400,false,UnidadMedida.UNIDAD);
+		Insumo i8=new Insumo("7","I7","Planta E",700,1,700,false,UnidadMedida.UNIDAD);
+		Insumo i9=new Insumo("8","I8","Planta A",500,5.6,1000,false,UnidadMedida.UNIDAD);
+		Insumo i10=new Insumo("9","I2","Planta C",600,2.4,2000,false,UnidadMedida.UNIDAD);
+		Insumo i11=new Insumo("10","I9","Planta C",700,2,700,false,UnidadMedida.UNIDAD);
+		Insumo i12=new Insumo("11","I10","Planta F",300,1,300,false,UnidadMedida.UNIDAD);
 		
 		listaInsumos.add(i1);
 		listaInsumos.add(i2);
@@ -95,6 +95,13 @@ public class Listas {
 		}
 		
 		return aux;
+	}
+	
+	public Insumo buscarInsumo(String nombre, double costo, int stock) {
+		for(Insumo in:listaInsumos) {
+			if(in.getDescripcion().compareTo(nombre)==0 && in.getCosto()==costo && in.getStock()==stock) return in;
+		}
+		return null;
 	}
 	
 	

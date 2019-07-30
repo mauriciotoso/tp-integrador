@@ -1,43 +1,47 @@
 package isi.died.tp.pantallas;
 
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
-import javax.swing.JTextField;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
-import javax.swing.JComboBox;
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
-import isi.died.tp.dominio.UnidadMedida;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JRadioButton;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
-public class CrearInsumo {
+import isi.died.tp.dominio.Insumo;
+import isi.died.tp.dominio.InsumoLiquido;
+import isi.died.tp.dominio.UnidadMedida;
+
+public class EditarInsumo {
 
 	private JFrame frame;
+	
 	private JTextField tfId;
 	private JTextField tfDescripcion;
 	private JTextField tfCosto;
 	private JTextField tfStock;
+	private static Insumo seleccion;
 	
 	private final ButtonGroup buttonGroupRefrigerado = new ButtonGroup();
 	private final ButtonGroup buttonGroupLiquidos = new ButtonGroup();
 
+
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	public static void main(Insumo insumo) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					CrearInsumo window = new CrearInsumo();
+					EditarInsumo window = new EditarInsumo(insumo);
 					window.frame.setVisible(true);
-				} catch (Exception e) {
+					}catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
@@ -47,7 +51,8 @@ public class CrearInsumo {
 	/**
 	 * Create the application.
 	 */
-	public CrearInsumo() {
+	public EditarInsumo(Insumo insumo) {
+		seleccion=insumo;
 		initialize();
 	}
 
@@ -56,11 +61,15 @@ public class CrearInsumo {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setTitle("Crear Insumo");
+		frame.setTitle("Editar Insumo");
 		frame.setSize(500,380);
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
+		
+		JLabel editarCampos = new JLabel("Editar los campos del Insumo: ");
+		editarCampos.setBounds(10, 11, 164, 14);
+		frame.getContentPane().add(editarCampos);
 		
 		tfId = new JTextField();
 		tfId.setBounds(214, 36, 130, 20);
@@ -68,23 +77,19 @@ public class CrearInsumo {
 		tfId.setColumns(10);
 		
 		JButton agregarInsumo = new JButton("Agregar Insumo");
-		agregarInsumo.setBounds(365, 306, 109, 23);
+		agregarInsumo.setBounds(349, 305, 125, 25);
 		frame.getContentPane().add(agregarInsumo);
 		
 		JButton Atrás = new JButton("Atrás");
 		Atrás.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				GestionInsumos gInsumos = new GestionInsumos();
-				gInsumos.main(null);
+				BuscarInsumos bInsumos = new BuscarInsumos();
+				bInsumos.main(null);
 				frame.dispose();
 			}
 		});
 		Atrás.setBounds(10, 305, 100, 25);
 		frame.getContentPane().add(Atrás);
-		
-		JLabel lblIngreseLosDatos = new JLabel("Ingrese los datos del insumo:");
-		lblIngreseLosDatos.setBounds(10, 11, 200, 14);
-		frame.getContentPane().add(lblIngreseLosDatos);
 		
 		JLabel lblId = new JLabel("ID: ");
 		lblId.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -100,6 +105,7 @@ public class CrearInsumo {
 		tfDescripcion.setColumns(10);
 		tfDescripcion.setBounds(214, 67, 130, 20);
 		frame.getContentPane().add(tfDescripcion);
+
 		
 		JLabel lblUnidadDeMedida = new JLabel("Unidad de medida: ");
 		lblUnidadDeMedida.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -115,7 +121,7 @@ public class CrearInsumo {
 		tfCosto.setColumns(10);
 		tfCosto.setBounds(214, 123, 130, 20);
 		frame.getContentPane().add(tfCosto);
-		
+
 		JLabel lblStockEnCentro = new JLabel("Stock en centro de acopio: ");
 		lblStockEnCentro.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblStockEnCentro.setBounds(10, 154, 200, 14);
@@ -125,6 +131,7 @@ public class CrearInsumo {
 		tfStock.setColumns(10);
 		tfStock.setBounds(214, 151, 130, 20);
 		frame.getContentPane().add(tfStock);
+
 		
 		JLabel lblRef = new JLabel("¿Es refrigerado? ");
 		lblRef.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -135,15 +142,17 @@ public class CrearInsumo {
 		cbUnidad.setModel(new DefaultComboBoxModel(UnidadMedida.values()));
 		cbUnidad.setBounds(214, 95, 130, 20);
 		frame.getContentPane().add(cbUnidad);
+
 		
 		JRadioButton siR = new JRadioButton("Si");
 		siR.setBounds(214, 178, 46, 23);
 		frame.getContentPane().add(siR);
+
 		
 		JRadioButton noR = new JRadioButton("No");
 		noR.setBounds(298, 178, 46, 23);
 		frame.getContentPane().add(noR);
-		
+
 		JLabel lblesLquido = new JLabel("¿Es líquido? ");
 		lblesLquido.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblesLquido.setBounds(10, 207, 200, 14);
@@ -152,7 +161,7 @@ public class CrearInsumo {
 		JRadioButton noL = new JRadioButton("No");
 		noL.setBounds(298, 204, 46, 23);
 		frame.getContentPane().add(noL);
-		
+
 		JRadioButton siL = new JRadioButton("Si");
 		siL.setBounds(214, 204, 46, 23);
 		frame.getContentPane().add(siL);
@@ -197,6 +206,29 @@ public class CrearInsumo {
 		tfVol.setBounds(214, 260, 130, 20);
 		frame.getContentPane().add(tfVol);
 		tfVol.setVisible(false);
+		
+		tfId.setText(seleccion.getId());
+		tfDescripcion.setText(seleccion.getDescripcion());
+		tfCosto.setText(String.valueOf(seleccion.getCosto()));
+		tfStock.setText(String.valueOf(seleccion.getStock()));
+		cbUnidad.setSelectedItem(seleccion.getUnidad());
+		siR.setSelected(seleccion.isEsRefrigerado());
+		noR.setSelected(!seleccion.isEsRefrigerado());
+		noL.setSelected(!(seleccion instanceof InsumoLiquido));
+		siL.setSelected(seleccion instanceof InsumoLiquido);	
+		if(!(seleccion instanceof InsumoLiquido)){
+			tfPeso.setVisible(true);
+			lblPeso.setVisible(true);
+			tfPeso.setText(String.valueOf(seleccion.getPeso()));
+		}
+		if(seleccion instanceof InsumoLiquido) {
+			tfDensidad.setVisible(true);
+			tfVol.setVisible(true);
+			lblDensidad.setVisible(true);
+			lblVol.setVisible(true);
+			tfDensidad.setText(String.valueOf(((InsumoLiquido)seleccion).getDensidad()));
+			tfVol.setText(String.valueOf(((InsumoLiquido)seleccion).getVolumen()));
+		}
 		
 		siL.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

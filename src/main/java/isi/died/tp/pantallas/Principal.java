@@ -10,14 +10,14 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JPanel;
 
-public class PantallaPrincipal {
+public class Principal {
 
 	private JFrame frame;
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					PantallaPrincipal window = new PantallaPrincipal();
+					Principal window = new Principal();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -29,7 +29,7 @@ public class PantallaPrincipal {
 	/** 
 	 * Create the application.
 	 */
-	public PantallaPrincipal() {
+	public Principal() {
 		initialize();
 	}
 

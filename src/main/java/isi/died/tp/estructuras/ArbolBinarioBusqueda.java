@@ -150,39 +150,68 @@ public class ArbolBinarioBusqueda<E extends Comparable<E>> extends Arbol<E> {
 	
 	public ArrayList<E> rango(String nombre, int stockMin,int stockMax, double costoMin, double costoMax){
 		
-		ArrayList<E> lista = new ArrayList<E>();
+		ArrayList<E> lista1 = new ArrayList<E>();
+		ArrayList<E> lista2 = new ArrayList<E>();
+		ArrayList<E> lista3 = new ArrayList<E>();
+		
 		System.out.println("2. Stock Minimo: "+stockMin+" Stock Maximo: "+stockMax+" Costo Minimo: "+costoMin+" Costo Maximo: "+ costoMax);
 		
-		lista=rangoAux(nombre,stockMin,stockMax,costoMin,costoMax,lista);
-		Collections.sort(lista);
+		lista1=rangoStock(nombre,stockMin,stockMax,lista1);
+		lista2=rangoCosto(nombre,costoMin,costoMax,lista2);
+		
+		for(int i=0;i< lista1.size() ;i++) {
+		 	if(lista2.contains(lista1.get(i))) lista3.add(lista1.get(i));
+		}
+		
+		Collections.sort(lista3);
+		
+		return lista3;
+	}
+	
+	public ArrayList<E> rangoStock(String nombre, int stockMin,int stockMax,ArrayList<E> lista) {
+		
+		if(this.izquierdo.esVacio()&&this.derecho.esVacio()) {
+			if (((Insumo) this.valor).getStock() >= stockMin  && ((Insumo) this.valor).getStock() <= stockMax) {if(((Insumo) this.valor).nombreParecido(nombre)) lista.add(valor);}
+		}
+		
+		else if (((Insumo) this.valor).getStock() < stockMin) {
+				lista = this.derecho.rangoStock(nombre,stockMin,stockMax,lista);
+		}
+		
+		else if (((Insumo) this.valor).getStock() > stockMax){
+			lista = this.izquierdo.rangoStock(nombre,stockMin,stockMax,lista);
+		}
+		
+		else if (((Insumo) this.valor).getStock() >= stockMin  && ((Insumo) this.valor).getStock() <= stockMax) {
+			if(((Insumo) this.valor).nombreParecido(nombre)) lista.add(valor);
+			lista = this.derecho.rangoStock(nombre,stockMin,stockMax,lista);
+			lista = this.izquierdo.rangoStock(nombre,stockMin,stockMax,lista);
+		}
 		
 		return lista;
 	}
 	
-	public ArrayList<E> rangoAux(String nombre, int stockMin,int stockMax, double costoMin, double costoMax,ArrayList<E> lista) {
+	public ArrayList<E> rangoCosto(String nombre,double costoMin, double costoMax,ArrayList<E> lista) {
 		
 		if(this.izquierdo.esVacio()&&this.derecho.esVacio()) {
-			if (((Insumo) this.valor).getStock() >= stockMin  && ((Insumo) this.valor).getStock() <= stockMax && 
-				((Insumo) this.valor).getCosto() >= costoMin  && ((Insumo) this.valor).getCosto() <= costoMax) {if(((Insumo) this.valor).nombreParecido(nombre)) lista.add(valor);}
+			if (((Insumo) this.valor).getCosto() >= costoMin  && ((Insumo) this.valor).getCosto() <= costoMax) {if(((Insumo) this.valor).nombreParecido(nombre)) lista.add(valor);}
 		}
 		
-		else if (((Insumo) this.valor).getStock() < stockMin || 
-				(((Insumo) this.valor).getStock() < stockMin && ((Insumo) this.valor).getCosto() < costoMin)) {
-				lista = this.derecho.rangoAux(nombre,stockMin,stockMax,costoMin,costoMax,lista);
+		else if (((Insumo) this.valor).getCosto() < costoMin) {
+				lista = this.derecho.rangoCosto(nombre,costoMin,costoMax,lista);
 		}
 		
-		else if (((Insumo) this.valor).getStock() > stockMax || 
-				(((Insumo) this.valor).getStock() > stockMax && ((Insumo) this.valor).getCosto() > costoMax)){
-			lista = this.izquierdo.rangoAux(nombre,stockMin,stockMax,costoMin,costoMax,lista);
+		else if ((((Insumo) this.valor).getCosto() > costoMax)){
+			lista = this.izquierdo.rangoCosto(nombre,costoMin,costoMax,lista);
 		}
 		
-		else if (((Insumo) this.valor).getStock() >= stockMin  && ((Insumo) this.valor).getStock() <= stockMax && 
-				((Insumo) this.valor).getCosto() >= costoMin  && ((Insumo) this.valor).getCosto() <= costoMax) {
+		else if (((Insumo) this.valor).getCosto() >= costoMin  && ((Insumo) this.valor).getCosto() <= costoMax) {
 			if(((Insumo) this.valor).nombreParecido(nombre)) lista.add(valor);
-			lista = this.derecho.rangoAux(nombre,stockMin,stockMax,costoMin,costoMax,lista);
-			lista = this.izquierdo.rangoAux(nombre,stockMin,stockMax,costoMin,costoMax,lista);
+			lista = this.derecho.rangoCosto(nombre,costoMin,costoMax,lista);
+			lista = this.izquierdo.rangoCosto(nombre,costoMin,costoMax,lista);
 		}
 		
 		return lista;
 	}
+	
 }

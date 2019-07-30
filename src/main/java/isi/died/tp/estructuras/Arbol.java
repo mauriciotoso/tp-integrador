@@ -35,7 +35,9 @@ public abstract class Arbol<E extends Comparable<E>> {
 
 	public abstract boolean esLleno();
 
-	protected abstract ArrayList<E> rangoAux(String nombre, int stockMin,int stockMax, double costoMin, double costoMax,ArrayList<E> lista);
+	protected abstract ArrayList<E> rangoStock(String nombre, int stockMin,int stockMax,ArrayList<E> lista);
+
+	protected abstract ArrayList<E> rangoCosto(String nombre, double costoMin, double costoMax,ArrayList<E> lista);
 
 	protected abstract Object rango(String nombre, int stockMin,int stockMax, double costoMin, double costoMax);	
 }
