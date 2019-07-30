@@ -47,6 +47,11 @@ public class Planta {
 	public void setStocks(ArrayList<Stock> stocks) {
 		this.stocks = stocks;
 	}
+	
+	public void agregarStock(Stock stock) {
+		this.stocks.add(stock);
+	}
+
 
 	public ArrayList<Insumo> stockEntre(int s1, int s2){
 		

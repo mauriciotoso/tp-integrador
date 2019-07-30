@@ -48,8 +48,7 @@ public class GrafoPlanta extends Grafo<Planta> {
 			for(int c=0;c<plantasOrd.size();c++) {
 				if(plantasOrd.get(c).necesitaInsumo(i)) return plantasOrd.get(c);
 			}
-		}
-		
+		}	
 		return null;
 	}
  // c

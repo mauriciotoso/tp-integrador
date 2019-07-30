@@ -9,8 +9,8 @@ public class InsumoLiquido extends Insumo {
 		super(stock);
 	}
 	
-	public InsumoLiquido(String i,String des,String planta, int s,double den,double vol,double costo,boolean ref,UnidadMedida u){	//vol en m3
-		super(i,des,planta,s,vol*den,costo,ref,u);
+	public InsumoLiquido(String i,String des, int s,double den,double vol,double costo,boolean ref,UnidadMedida u){	//vol en m3
+		super(i,des,s,vol*den,costo,ref,u);
 		this.densidad=den;
 		this.volumen=vol;
 	}

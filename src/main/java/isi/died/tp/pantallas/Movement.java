@@ -14,28 +14,28 @@ import javax.swing.JPanel;
 public class Movement implements MouseListener,MouseMotionListener{
 
 	int x,y;
-	int xaux,yaux;
+	//int xaux,yaux;
 	
-	public Movement(Component[] components, int x,int y) {
+	public Movement(Component[] components) {
 		
-		xaux=x;
-		yaux=y;
+		//xaux=x;
+		//yaux=y;
 		for(Component panel:components) {
 			panel.addMouseListener(this);
 			panel.addMouseMotionListener(this);
 		}
 	}
 	
-	public void paint(Graphics g) {
+	/*public void paint(Graphics g) {
 		Graphics g2D =(Graphics2D) g;
 		
-		repaint(g2D, 10,10,200,200);	
+		repaint(g2D, 10,10,xaux,yaux);	
 	}
 	
 	public void repaint(Graphics g,int xi, int yi, int xf, int yf) {	
 		g.drawLine(xi,yi,xf,yf);
 	}
-	
+	*/
 	@Override
 	public void mouseDragged(MouseEvent e) {
 		e.getComponent().setLocation(e.getX()+e.getComponent().getX()-x,e.getY()+e.getComponent().getY()-y);	

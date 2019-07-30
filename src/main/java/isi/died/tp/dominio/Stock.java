@@ -7,11 +7,11 @@ public class Stock {
 	private int puntoPedido;
 	private Insumo insumo;
 	
-	public Stock(int id, int c, int pp, Insumo i) {
+	public Stock(int id, int cantidad, int puntoPedido, Insumo insumo) {
 		this.id=id;
-		this.cantidad=c;
-		this.puntoPedido=pp;
-		this.insumo=i;
+		this.cantidad=cantidad;
+		this.puntoPedido=puntoPedido;
+		this.insumo=insumo;
 	}
 	
 	public Stock() {

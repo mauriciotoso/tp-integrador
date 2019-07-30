@@ -4,17 +4,15 @@ public class Insumo implements Comparable <Insumo> {
 	
 	protected String id;
 	protected String descripcion;
-	protected String planta;
 	protected int stock;
 	protected double peso;
 	protected double costo;
 	protected boolean esRefrigerado;
 	protected UnidadMedida unidad;	
 	
-	public Insumo(String i,String des,String planta, int s,double peso,double costo,boolean ref,UnidadMedida u){
+	public Insumo(String i,String des, int s,double peso,double costo,boolean ref,UnidadMedida u){
 		this.id=i;
 		this.descripcion=des;
-		this.planta=planta;
 		this.stock=s;
 		this.peso=peso;
 		this.costo=costo;
@@ -28,8 +26,6 @@ public class Insumo implements Comparable <Insumo> {
 	public void setId(String id) {this.id = id;}
 	public String getDescripcion() {return descripcion;}
 	public void setDescripcion(String descripcion) {this.descripcion = descripcion;}
-	public String getPlanta() {return planta;}
-	public void setPlanta(String planta) {this.planta = planta;}
 	public int getStock() {return stock;}
 	public void setStock(int stock) {this.stock = stock;}
 	public double getPeso() {return peso;}
