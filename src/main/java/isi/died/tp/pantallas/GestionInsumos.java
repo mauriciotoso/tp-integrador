@@ -1,8 +1,9 @@
 package isi.died.tp.pantallas;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
+import isi.died.tp.app.App;
+import isi.died.tp.datos.Datos;
+
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -10,33 +11,13 @@ import java.awt.event.ActionEvent;
 public class GestionInsumos {
 
 	private JFrame frame;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					GestionInsumos window = new GestionInsumos();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the application.
-	 */
-	public GestionInsumos() {
+	private Datos datos;
+	
+	public GestionInsumos(Datos datos) {
+		this.datos=datos;
 		initialize();
 	}
 	
-	/**
-	 * Initialize the contents of the frame.
-	 */
 	private void initialize() {
 		frame = new JFrame();
 		frame.setSize(450, 300);
@@ -47,8 +28,7 @@ public class GestionInsumos {
 		JButton btnCrearInsumo = new JButton("Crear Insumo");
 		btnCrearInsumo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				CrearInsumo cInsumo = new CrearInsumo();
-				cInsumo.main(null);
+				new CrearInsumo(datos);
 				frame.dispose();
 			}
 		});
@@ -58,8 +38,7 @@ public class GestionInsumos {
 		JButton btnBucarInsumo = new JButton("Buscar Insumo");
 		btnBucarInsumo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				BuscarInsumos bInsumo=new BuscarInsumos();
-				bInsumo.main(null);
+				new BuscarInsumo(datos);
 				frame.dispose();
 			}
 		});
@@ -70,11 +49,8 @@ public class GestionInsumos {
 		JButton btnNewButton = new JButton("Atrás");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				Principal principal =new Principal();
-				principal.main(null);
+				new App(datos);
 				frame.dispose();
-			
 			}
 		});
 		btnNewButton.setBounds(10, 227, 100, 25);
@@ -83,11 +59,12 @@ public class GestionInsumos {
 		JButton btnNewButton_1 = new JButton("Salir");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.exit(0);
+				frame.dispose();
 			}
 		});
 		btnNewButton_1.setBounds(324, 227, 100, 25);
 		frame.getContentPane().add(btnNewButton_1);
+		
+		frame.setVisible(true);
 	}
-
 }

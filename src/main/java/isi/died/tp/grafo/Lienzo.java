@@ -1,14 +1,18 @@
 package isi.died.tp.grafo;
 
 import java.awt.Graphics;
+
 import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+
+import isi.died.tp.datos.Datos;
+import isi.died.tp.dominio.Insumo;
+import isi.died.tp.dominio.Ruta;
 
 public class Lienzo extends JPanel implements MouseListener, MouseMotionListener{
 	
@@ -19,19 +23,37 @@ public class Lienzo extends JPanel implements MouseListener, MouseMotionListener
 	
 	private ArrayList<VerticeView> listaNodos;
 	private ArrayList<AristaView> listaEnlaces;
-	private VerticeView nodo1, nodo2,nodoaux;
+	private VerticeView nodoaux;
 	private VerticeView nodoMover;
 	private int iNodo;
 	private int contIdNodo=0;
 	private int contIdEnlace=0;
 	private ArrayList<Integer> enlacesMover;
+	private Datos datos;
+	private Insumo insumo;
 	
 	public Lienzo() {
+		insumo=null;
 		this.listaNodos = new ArrayList<>();
 		this.listaEnlaces = new ArrayList<>();
 		this.enlacesMover= new ArrayList<>();
+		datos = new Datos();
 		this.addMouseListener(this);
 		this.addMouseMotionListener(this);
+		this.crearVertices();
+		this.crearAristas();
+	}
+	
+	public Lienzo(Insumo insumo, ArrayList<Ruta> listaRutasPintar) {
+		this.insumo=insumo;
+		this.listaNodos = new ArrayList<>();
+		this.listaEnlaces = new ArrayList<>();
+		this.enlacesMover= new ArrayList<>();
+		datos = new Datos();
+		this.addMouseListener(this);
+		this.addMouseMotionListener(this);
+		this.crearVertices(insumo);
+		this.crearAristas(listaRutasPintar);
 	}
 	
 	public void paint(Graphics g) {
@@ -43,32 +65,72 @@ public class Lienzo extends JPanel implements MouseListener, MouseMotionListener
 			enlace.pintar(g);
 		}
 	}
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		if(e.getButton()==MouseEvent.BUTTON1) {
-			String nombre = JOptionPane.showInputDialog("Ingrese nombre nodo: ");
-			this.listaNodos.add(new VerticeView(e.getX(),e.getY(),nombre,contIdNodo));
+
+	public void crearVertices() {
+		
+		this.listaNodos.add(new VerticeView(50,250,datos.getListaPlantas().get(0).getNombre(),0,datos.getListaPlantas().get(0)));
+		this.listaNodos.add(new VerticeView(700,250,datos.getListaPlantas().get(1).getNombre(),1,datos.getListaPlantas().get(1)));
+		contIdNodo=2;
+		
+		for(int i=2;i<datos.getListaPlantas().size();i++) {
+			this.listaNodos.add(new VerticeView(50*i,50*i,datos.getListaPlantas().get(i).getNombre(),contIdNodo,datos.getListaPlantas().get(i)));
 			contIdNodo++;
 			repaint();
 		}
-		if(e.getButton()==MouseEvent.BUTTON3) {
-			for(VerticeView nodo:listaNodos) {
-				if(new Rectangle(nodo.getX() - VerticeView.d/2, nodo.getY() - VerticeView.d/2,VerticeView.d,VerticeView.d).contains(e.getPoint())) {
-					if(nodo1==null) {
-						nodo1=nodo;
-					}
-					else {
-						String nombre = JOptionPane.showInputDialog("Ingrese nombre enlace: ");
-						nodo2=nodo;
-						this.listaEnlaces.add(new AristaView(nodo1,nodo2,nombre,contIdEnlace));
-						contIdEnlace++;
-						repaint();
-						nodo1=null;
-						nodo2=null;
-					}
-				}
-			}
+	}
+	
+	public void crearVertices(Insumo insumo) {
+		
+		this.listaNodos.add(new VerticeView(50,250,datos.getListaPlantas().get(0).getNombre(),0,datos.getListaPlantas().get(0)));
+		this.listaNodos.add(new VerticeView(700,250,datos.getListaPlantas().get(1).getNombre(),1,datos.getListaPlantas().get(1)));
+		contIdNodo=2;
+		
+		for(int i=2;i<datos.getListaPlantas().size();i++) {
+			
+			this.listaNodos.add(new VerticeView(50*i,50*i,datos.getListaPlantas().get(i).getNombre(),contIdNodo,datos.getListaPlantas().get(i),insumo));
+			contIdNodo++;
+			repaint();
 		}
+	}
+	
+	public void crearAristas() {
+		String nombre;
+		VerticeView v1=null,v2=null;
+		for(Ruta ruta:datos.getListaRutas()) {
+			nombre="Dis= "+ruta.getDistancia()+" Dur="+ruta.getDuracionEnMin();
+			
+			for(VerticeView vertice:listaNodos) {
+				if(vertice.getPlanta()==ruta.getInicio().getValor()) v1=vertice;
+				else if(vertice.getPlanta()==ruta.getFin().getValor()) v2=vertice;
+			}
+			
+			this.listaEnlaces.add(new AristaView(v1,v2,nombre,contIdEnlace,ruta));
+			contIdEnlace++;
+			repaint();
+		}
+	}
+	
+	public void crearAristas(ArrayList<Ruta> listaRutasPintar) {
+		String nombre;
+		VerticeView v1=null,v2=null;
+		for(Ruta ruta:datos.getListaRutas()) {
+			nombre="Dis= "+ruta.getDistancia()+" Dur="+ruta.getDuracionEnMin();
+			
+			for(VerticeView vertice:listaNodos) {
+				if(vertice.getPlanta()==ruta.getInicio().getValor()) v1=vertice;
+				else if(vertice.getPlanta()==ruta.getFin().getValor()) v2=vertice;
+			}
+			
+			this.listaEnlaces.add(new AristaView(v1,v2,nombre,contIdEnlace,ruta));
+			contIdEnlace++;
+			repaint();
+		}
+	}
+	
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		
 	}
 
 	@Override
@@ -117,20 +179,35 @@ public class Lienzo extends JPanel implements MouseListener, MouseMotionListener
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		if(nodoMover!=null) {
-			nodoaux=new VerticeView(e.getX(),e.getY(),nodoMover.getNombre(),nodoMover.getId());
+		if(insumo!=null) {
+			if(nodoMover!=null) {
+			nodoaux=new VerticeView(e.getX(),e.getY(),nodoMover.getNombre(),nodoMover.getId(),nodoMover.getPlanta(),insumo);
 			this.listaNodos.set(iNodo,nodoaux);
 			int iE=0;
 			for(AristaView enlace: listaEnlaces) {
 				if(new Rectangle(enlace.getX1()-VerticeView.d/2,enlace.getY1()-VerticeView.d/2,VerticeView.d,VerticeView.d).contains(e.getPoint())&&enlacesMover.contains(enlace.getId())) {
-					this.listaEnlaces.set(iE, new AristaView(nodoaux, enlace.getNodo2(), enlace.getNombre(),enlace.getId()));
+					this.listaEnlaces.set(iE, new AristaView(nodoaux, enlace.getNodo2(), enlace.getNombre(),enlace.getId(),enlace.getRuta(),enlace.isPintar()));
 				}
 				else if(new Rectangle(enlace.getX2()-VerticeView.d/2,enlace.getY2()-VerticeView.d/2,VerticeView.d,VerticeView.d).contains(e.getPoint())&&enlacesMover.contains(enlace.getId())) {
-					this.listaEnlaces.set(iE, new AristaView(enlace.getNodo1(),nodoaux, enlace.getNombre(),enlace.getId()));
+					this.listaEnlaces.set(iE, new AristaView(enlace.getNodo1(),nodoaux, enlace.getNombre(),enlace.getId(),enlace.getRuta(),enlace.isPintar()));
 				}
 				iE++;
 			}
-		}
+		}}else {
+			if(nodoMover!=null) {
+				nodoaux=new VerticeView(e.getX(),e.getY(),nodoMover.getNombre(),nodoMover.getId(),nodoMover.getPlanta());
+				this.listaNodos.set(iNodo,nodoaux);
+				int iE=0;
+				for(AristaView enlace: listaEnlaces) {
+					if(new Rectangle(enlace.getX1()-VerticeView.d/2,enlace.getY1()-VerticeView.d/2,VerticeView.d,VerticeView.d).contains(e.getPoint())&&enlacesMover.contains(enlace.getId())) {
+						this.listaEnlaces.set(iE, new AristaView(nodoaux, enlace.getNodo2(), enlace.getNombre(),enlace.getId(),enlace.getRuta()));
+					}
+					else if(new Rectangle(enlace.getX2()-VerticeView.d/2,enlace.getY2()-VerticeView.d/2,VerticeView.d,VerticeView.d).contains(e.getPoint())&&enlacesMover.contains(enlace.getId())) {
+						this.listaEnlaces.set(iE, new AristaView(enlace.getNodo1(),nodoaux, enlace.getNombre(),enlace.getId(),enlace.getRuta()));
+					}
+					iE++;
+				}
+		}}
 		repaint();
 	}
 

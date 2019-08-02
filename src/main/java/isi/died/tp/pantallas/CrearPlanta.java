@@ -1,53 +1,35 @@
 package isi.died.tp.pantallas;
 
-import java.awt.EventQueue;
-
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
-import java.awt.BorderLayout;
-import javax.swing.BoxLayout;
-import java.awt.GridLayout;
 import javax.swing.SwingConstants;
-import java.awt.Component;
-import javax.swing.JButton;
-import javax.swing.JSpinner;
 
-public class PantallaAgregarPlanta {
+import isi.died.tp.datos.Datos;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+public class CrearPlanta {
 
 	private JFrame frame;
 	private JTextField textIDPlanta;
 	private JTextField txtNombrePlanta;
+	private Datos datos;
 
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					PantallaAgregarPlanta window = new PantallaAgregarPlanta();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the application.
-	 */
-	public PantallaAgregarPlanta() {
+	public CrearPlanta(Datos datos) {
+		this.datos=datos;
 		initialize();
 	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
 	private void initialize() {
 		frame = new JFrame();
 		frame.setTitle("Ingresar nueva planta");
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
+		frame.setLocationRelativeTo(null);
 		
 		JLabel lblId = new JLabel("ID :");
 		lblId.setBounds(124, 40, 18, 14);
@@ -68,12 +50,26 @@ public class PantallaAgregarPlanta {
 		frame.getContentPane().add(txtNombrePlanta);
 		txtNombrePlanta.setColumns(10);
 		
-		JButton btnAtrs = new JButton("AtrÃ¡s");
+		JButton btnAtrs = new JButton("Atrás");
+		btnAtrs.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new GestionPlantas(datos);
+				frame.dispose();
+			}
+		});
+		
 		btnAtrs.setBounds(10, 227, 89, 23);
 		frame.getContentPane().add(btnAtrs);
 		
 		JButton btnIngresarPlanta = new JButton("Ingresar planta");
 		btnIngresarPlanta.setBounds(303, 227, 121, 23);
 		frame.getContentPane().add(btnIngresarPlanta);
+		btnIngresarPlanta.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new GestionPlantas(datos);
+				frame.dispose();
+			}
+		});
+		frame.setVisible(true);
 	}
 }

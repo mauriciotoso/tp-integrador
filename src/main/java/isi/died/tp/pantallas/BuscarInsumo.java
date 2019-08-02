@@ -1,37 +1,28 @@
 package isi.died.tp.pantallas;
 
-import java.awt.EventQueue;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import javax.swing.border.BevelBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
-import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.JTableHeader;
-
-import isi.died.tp.datos.Listas;
+import isi.died.tp.datos.Datos;
 import isi.died.tp.dominio.Insumo;
 import isi.died.tp.estructuras.ArbolBinarioBusqueda;
-
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import java.util.Comparator;
 
-public class BuscarInsumos {
+public class BuscarInsumo {
 
 	private JFrame frame;
 	private JTextField tfDescripcion;
@@ -41,28 +32,10 @@ public class BuscarInsumos {
     private JTable busqueda;
     private ListSelectionModel model;
     private Insumo seleccion;
+	private Datos datos;
 	
-    /**
-	 * Launch the application.
-	 */
-	
-    public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					BuscarInsumos window = new BuscarInsumos();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the application.
-	 */
-	public BuscarInsumos() {
+    public BuscarInsumo(Datos datos) {
+    	this.datos=datos;
 		initialize();
 	}
 
@@ -81,8 +54,7 @@ public class BuscarInsumos {
 		JButton Atrás = new JButton("Atrás");
 		Atrás.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				GestionInsumos gInsumos = new GestionInsumos();
-				gInsumos.main(null);
+				new GestionInsumos(datos);
 				frame.dispose();
 			}
 		});
@@ -142,8 +114,6 @@ public class BuscarInsumos {
 		scrollPane.setBounds(331, 38, 225, 200);
 		frame.getContentPane().add(scrollPane);
 		
-		Listas datos = new Listas();
-		
 		Object[][] datosInsumos= datos.getBusquedaInsumos();
 		String[] columnas= {"Nombre","Costo","Stock"};
 		
@@ -152,6 +122,32 @@ public class BuscarInsumos {
 		busqueda.setAutoCreateRowSorter(true);
 		scrollPane.setViewportView(busqueda);
 		busqueda.editingCanceled(null);
+		TableRowSorter<TableModel> sorter = new TableRowSorter<>(busqueda.getModel());
+		busqueda.setRowSorter(sorter);
+		
+		sorter.setComparator(0, new Comparator<String>() {
+		    @Override
+		    public int compare(String name1, String name2) {
+		    	System.out.println("hola");
+		        return name1.compareTo(name2);
+		    }
+		});
+		
+		sorter.setComparator(1, new Comparator<Double>() {
+			@Override
+			public int compare(Double o1, Double o2) {
+				if((o1-o2)<0) return -1;
+		        else if((o1-o2)>0)return 1;
+		        else return 0;
+			}
+		});
+		
+		sorter.setComparator(2, new Comparator<Integer>() {
+			@Override
+			public int compare(Integer o1, Integer o2) {
+				return o1-o2;
+			}
+		});
 		
 		tfStockMax = new JTextField();
 		tfStockMax.setColumns(10);
@@ -161,11 +157,11 @@ public class BuscarInsumos {
 		JButton editar = new JButton("Editar");
 		editar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				EditarInsumo eInsumo = new EditarInsumo(seleccion);
-				eInsumo.main(seleccion);
+				new EditarInsumo(seleccion,datos);
 				frame.dispose();
 			}
 		});
+		
 		editar.setBounds(337, 276, 100, 25);
 		frame.getContentPane().add(editar);
 		editar.setEnabled(false);		
@@ -193,7 +189,7 @@ public class BuscarInsumos {
 							Double aux2=(Double) busqueda.getValueAt(model.getMinSelectionIndex(), 1);
 							Integer aux3=(Integer) busqueda.getValueAt(model.getMinSelectionIndex(), 2);
 
-							seleccion=(new Listas()).buscarInsumo(aux1,aux2,aux3);
+							seleccion=datos.buscarInsumo(aux1,aux2,aux3);
 						}
 					}
 				});
@@ -221,7 +217,7 @@ public class BuscarInsumos {
 							Double aux2=(Double) busqueda.getValueAt(model.getMinSelectionIndex(), 1);
 							Integer aux3=(Integer) busqueda.getValueAt(model.getMinSelectionIndex(), 2);
 
-							seleccion=(new Listas()).buscarInsumo(aux1,aux2,aux3);
+							seleccion=datos.buscarInsumo(aux1,aux2,aux3);
 						}
 					}
 				});
@@ -249,7 +245,7 @@ public class BuscarInsumos {
 							Double aux2=(Double) busqueda.getValueAt(model.getMinSelectionIndex(), 1);
 							Integer aux3=(Integer) busqueda.getValueAt(model.getMinSelectionIndex(), 2);
 
-							seleccion=(new Listas()).buscarInsumo(aux1,aux2,aux3);
+							seleccion=datos.buscarInsumo(aux1,aux2,aux3);
 						}
 					}
 				});
@@ -277,7 +273,7 @@ public class BuscarInsumos {
 							Double aux2=(Double) busqueda.getValueAt(model.getMinSelectionIndex(), 1);
 							Integer aux3=(Integer) busqueda.getValueAt(model.getMinSelectionIndex(), 2);
 
-							seleccion=(new Listas()).buscarInsumo(aux1,aux2,aux3);	
+							seleccion=datos.buscarInsumo(aux1,aux2,aux3);	
 						}
 					}
 				});
@@ -306,7 +302,7 @@ public class BuscarInsumos {
 							Double aux2=(Double) busqueda.getValueAt(model.getMinSelectionIndex(), 1);
 							Integer aux3=(Integer) busqueda.getValueAt(model.getMinSelectionIndex(), 2);
 
-							seleccion=(new Listas()).buscarInsumo(aux1,aux2,aux3);
+							seleccion=datos.buscarInsumo(aux1,aux2,aux3);
 						}
 					}
 				});
@@ -324,22 +320,23 @@ public class BuscarInsumos {
 					Double aux2=(Double) busqueda.getValueAt(model.getMinSelectionIndex(), 1);
 					Integer aux3=(Integer) busqueda.getValueAt(model.getMinSelectionIndex(), 2);
 
-					seleccion=(new Listas()).buscarInsumo(aux1,aux2,aux3);	
+					seleccion=datos.buscarInsumo(aux1,aux2,aux3);	
 				}
 			}
 		});
+	frame.setVisible(true);
 	}
 	
-	public Object[][] actualizarTabla(Object[][] datos,String des,String cMin, String cMax, String sMin, String sMax){
+	private Object[][] actualizarTabla(Object[][] datosTabla,String des,String cMin, String cMax, String sMin, String sMax){
 
-		Listas datosAux = new Listas();
+		Datos datosAux = new Datos();
 		ArbolBinarioBusqueda<Insumo> arbolDatos = new ArbolBinarioBusqueda<Insumo>(datosAux.getListaInsumos().get(0));
 		int stockMin;
 		int stockMax;
 		double costoMin;
 		double costoMax;
 		
-		for(int i=1;i<datos.length;i++){
+		for(int i=1;i<datosTabla.length;i++){
 			arbolDatos.agregar(datosAux.getListaInsumos().get(i));
 		}
 		
@@ -353,17 +350,9 @@ public class BuscarInsumos {
 		costoMin=Double.parseDouble(cMin);
 		costoMax=Double.parseDouble(cMax);
 		
-		System.out.println("\n1. Stock Minimo: "+stockMin+" Stock Maximo: "+stockMax+" Costo Minimo: "+costoMin+" Costo Maximo: "+ costoMax);
-		
-		
 		ArrayList<Insumo> listaInsumos=arbolDatos.rango(des,stockMin,stockMax,costoMin,costoMax);
 		
 		datosAux.setListaInsumos(listaInsumos);
-		
-		/*for(int i=0;i<datosAux.getBusquedaInsumos().length;i++) {
-			for()
-			System.out.println(datosAux.getBusquedaInsumos()[i]);
-		}*/
 		
 		return datosAux.getBusquedaInsumos();
 	}	

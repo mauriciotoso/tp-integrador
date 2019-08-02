@@ -5,14 +5,14 @@ import isi.died.tp.estructuras.Arista;
 import isi.died.tp.estructuras.Vertice;
 
 public class Ruta extends Arista<Planta> {
-		private float distancia;
+		private double distancia;
 		private int duracionEnMin;
-		private float pesoMaxEnToneladas;
+		private double pesoMaxEnToneladas;
 		
-		public float getDistancia() {
+		public double getDistancia() {
 			return distancia;
 		}
-		public void setDistancia(float distancia) {
+		public void setDistancia(double distancia) {
 			this.distancia = distancia;
 		}
 		public int getDuracionEnMin() {
@@ -21,13 +21,13 @@ public class Ruta extends Arista<Planta> {
 		public void setDuracionEnMin(int duracionEnMin) {
 			this.duracionEnMin = duracionEnMin;
 		}
-		public float getPesoMaxEnToneladas() {
+		public double getPesoMaxEnToneladas() {
 			return pesoMaxEnToneladas;
 		}
-		public void setPesoMaxEnToneladas(float pesoMaxEnToneladas) {
+		public void setPesoMaxEnToneladas(double pesoMaxEnToneladas) {
 			this.pesoMaxEnToneladas = pesoMaxEnToneladas;
 		}
-		public Ruta(int id,float distancia, int duracionEnMin, float pesoMaxEnToneladas,Planta plantaInicial, Planta plantaFinal) {
+		public Ruta(int id,double distancia, int duracionEnMin, double pesoMaxEnToneladas,Planta plantaInicial, Planta plantaFinal) {
 			super(new Vertice<Planta>(plantaInicial),new Vertice<Planta>(plantaFinal),id);
 			
 			this.distancia = distancia;

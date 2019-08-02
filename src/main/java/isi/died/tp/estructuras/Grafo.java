@@ -19,6 +19,7 @@ import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 public class Grafo<T> {
+	
 	protected List<Arista<T>> aristas;
 	protected List<Vertice<T>> vertices;
 

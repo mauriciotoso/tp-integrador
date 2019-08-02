@@ -154,8 +154,6 @@ public class ArbolBinarioBusqueda<E extends Comparable<E>> extends Arbol<E> {
 		ArrayList<E> lista2 = new ArrayList<E>();
 		ArrayList<E> lista3 = new ArrayList<E>();
 		
-		System.out.println("2. Stock Minimo: "+stockMin+" Stock Maximo: "+stockMax+" Costo Minimo: "+costoMin+" Costo Maximo: "+ costoMax);
-		
 		lista1=rangoStock(nombre,stockMin,stockMax,lista1);
 		lista2=rangoCosto(nombre,costoMin,costoMax,lista2);
 		
@@ -171,7 +169,7 @@ public class ArbolBinarioBusqueda<E extends Comparable<E>> extends Arbol<E> {
 	public ArrayList<E> rangoStock(String nombre, int stockMin,int stockMax,ArrayList<E> lista) {
 		
 		if(this.izquierdo.esVacio()&&this.derecho.esVacio()) {
-			if (((Insumo) this.valor).getStock() >= stockMin  && ((Insumo) this.valor).getStock() <= stockMax) {if(((Insumo) this.valor).nombreParecido(nombre)) lista.add(valor);}
+			if (((Insumo) this.valor).getStock() >= stockMin  && ((Insumo) this.valor).getStock() <= stockMax) {if(((Insumo) this.valor).getDescripcion().contains(nombre)) lista.add(valor);}
 		}
 		
 		else if (((Insumo) this.valor).getStock() < stockMin) {
@@ -183,7 +181,7 @@ public class ArbolBinarioBusqueda<E extends Comparable<E>> extends Arbol<E> {
 		}
 		
 		else if (((Insumo) this.valor).getStock() >= stockMin  && ((Insumo) this.valor).getStock() <= stockMax) {
-			if(((Insumo) this.valor).nombreParecido(nombre)) lista.add(valor);
+			if(((Insumo) this.valor).getDescripcion().contains(nombre)) lista.add(valor);
 			lista = this.derecho.rangoStock(nombre,stockMin,stockMax,lista);
 			lista = this.izquierdo.rangoStock(nombre,stockMin,stockMax,lista);
 		}
@@ -194,7 +192,7 @@ public class ArbolBinarioBusqueda<E extends Comparable<E>> extends Arbol<E> {
 	public ArrayList<E> rangoCosto(String nombre,double costoMin, double costoMax,ArrayList<E> lista) {
 		
 		if(this.izquierdo.esVacio()&&this.derecho.esVacio()) {
-			if (((Insumo) this.valor).getCosto() >= costoMin  && ((Insumo) this.valor).getCosto() <= costoMax) {if(((Insumo) this.valor).nombreParecido(nombre)) lista.add(valor);}
+			if (((Insumo) this.valor).getCosto() >= costoMin  && ((Insumo) this.valor).getCosto() <= costoMax) {if(((Insumo) this.valor).getDescripcion().contains(nombre)) lista.add(valor);}
 		}
 		
 		else if (((Insumo) this.valor).getCosto() < costoMin) {
@@ -206,7 +204,7 @@ public class ArbolBinarioBusqueda<E extends Comparable<E>> extends Arbol<E> {
 		}
 		
 		else if (((Insumo) this.valor).getCosto() >= costoMin  && ((Insumo) this.valor).getCosto() <= costoMax) {
-			if(((Insumo) this.valor).nombreParecido(nombre)) lista.add(valor);
+			if(((Insumo) this.valor).getDescripcion().contains(nombre)) lista.add(valor);
 			lista = this.derecho.rangoCosto(nombre,costoMin,costoMax,lista);
 			lista = this.izquierdo.rangoCosto(nombre,costoMin,costoMax,lista);
 		}

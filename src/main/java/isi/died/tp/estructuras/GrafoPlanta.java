@@ -1,12 +1,47 @@
 package isi.died.tp.estructuras;
+
 import java.util.ArrayList;
 import java.util.List;
 import isi.died.tp.dominio.Insumo;
 import isi.died.tp.dominio.Planta;
+import isi.died.tp.dominio.Ruta;
 import isi.died.tp.dominio.Stock;
 
 public class GrafoPlanta extends Grafo<Planta> {
 	
+	private Planta acopioPuerto,acopioFinal;
+	
+	public GrafoPlanta(){
+		super();
+		
+		acopioPuerto= new Planta(0,"Acopio Puerto");
+		acopioFinal= new Planta(1,"Acopio Final");
+		
+		this.addNodo(acopioPuerto);
+		this.addNodo(acopioFinal);
+	}
+	
+	
+	public Planta getAcopioPuerto() {
+		return acopioPuerto;
+	}
+
+
+	public void setAcopioPuerto(Planta acopioPuerto) {
+		this.acopioPuerto = acopioPuerto;
+	}
+
+
+	public Planta getAcopioFinal() {
+		return acopioFinal;
+	}
+
+
+	public void setAcopioFinal(Planta acopioFinal) {
+		this.acopioFinal = acopioFinal;
+	}
+
+
 	public void imprimirDistanciaAdyacentes(Planta inicial) {
 	
 		List<Planta> adyacentes = super.getAdyacentes(inicial);
@@ -72,5 +107,9 @@ public class GrafoPlanta extends Grafo<Planta> {
 		}
 	return planta;	
 	
+	}
+	public ArrayList<Ruta> caminoPlanta() {
+		// TODO Auto-generated method stub
+		return new ArrayList<Ruta>();
 	}
 }

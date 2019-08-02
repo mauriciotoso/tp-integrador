@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import isi.died.tp.dominio.*;
 import isi.died.tp.estructuras.GrafoPlanta;
 
-public class Listas {
+public class Datos {
 	private ArrayList<Insumo> listaInsumos;
 	private ArrayList<Planta> listaPlantas;
 	private ArrayList<Camion> listaCamiones;
@@ -13,13 +13,13 @@ public class Listas {
 	private ArrayList<Ruta> listaRutas;
 	private GrafoPlanta grafo;
 	
-	public Listas() {
+	public Datos() {
+		grafo = new GrafoPlanta();
 		listaInsumos = new ArrayList<Insumo>();
 		listaPlantas = new ArrayList<Planta>();
 		listaCamiones = new ArrayList<Camion>();
 		listaStocks = new ArrayList<Stock>();
 		listaRutas = new ArrayList<Ruta>();
-		grafo = new GrafoPlanta();
 		
 		Insumo i1=new Insumo("0","I1a",500,5.6,5000,false,UnidadMedida.UNIDAD);
 		Insumo i2=new Insumo("1","I2a",600,2.4,6000,false,UnidadMedida.UNIDAD);
@@ -47,14 +47,13 @@ public class Listas {
 		listaInsumos.add(i11);
 		listaInsumos.add(i12);
 		
-		Planta acopioPuerto= new Planta(0,"Acopio Puerto");
-		Planta acopioFinal= new Planta(1,"Acopio Final");
 		Planta p1= new Planta(1,"Planta A");
 		Planta p2= new Planta(2,"Planta B");
 		Planta p3= new Planta(3,"Planta C");
 		
-		listaPlantas.add(acopioPuerto);
-		listaPlantas.add(acopioFinal);
+		listaPlantas.add(p1);
+		listaPlantas.add(p2);
+		listaPlantas.add(p3);
 		
 		Stock s1 = new Stock(0,200,100,i1);
 		Stock s2 = new Stock(1,100,500,i2);
@@ -67,6 +66,9 @@ public class Listas {
 		listaStocks.add(s1);
 		listaStocks.add(s2);
 		listaStocks.add(s3);
+		
+		Planta acopioPuerto = grafo.getAcopioPuerto();
+		Planta acopioFinal = grafo.getAcopioFinal();
 		
 		Ruta r1= new Ruta(0,10,60,40,acopioPuerto,acopioFinal);
 		Ruta r2= new Ruta(1,5,20,20,acopioPuerto,p1);
@@ -97,6 +99,30 @@ public class Listas {
 		grafo.conectar(p2, acopioFinal, 4);
 		grafo.conectar(p1, p3, 5);
 		grafo.conectar(p1, p2, 6);
+		
+		Camion c1 = new Camion("001","m1","mod1","AAA111",2010,50,true,3.4);
+		Camion c2 = new Camion("002","m1","mod2","AAA222",2011,50,false,4.4);
+		Camion c3 = new Camion("003","m1","mod3","AAA333",2012,50,true,5);
+		Camion c4 = new Camion("004","m2","mod1","AAA444",2009,50,false,3);
+		Camion c5 = new Camion("005","m2","mod2","AAA555",2008,50,true,6.7);
+		Camion c6 = new Camion("006","m2","mod3","BBB111",2010,50,false,3.4);
+		Camion c7 = new Camion("007","m3","mod1","BBB222",2011,50,true,7);
+		Camion c8 = new Camion("008","m3","mod2","BBB333",2012,50,false,4);
+		Camion c9 = new Camion("009","m3","mod3","BBB444",2013,50,true,5.5);
+		Camion c10 = new Camion("010","m4","mod1","BBB555",2014,50,false,6.5);
+		Camion c11 = new Camion("011","m4","mod2","CCC111",2015,50,true,10);
+		
+		listaCamiones.add(c1);
+		listaCamiones.add(c2);
+		listaCamiones.add(c3);
+		listaCamiones.add(c4);
+		listaCamiones.add(c5);
+		listaCamiones.add(c6);
+		listaCamiones.add(c7);
+		listaCamiones.add(c8);
+		listaCamiones.add(c9);
+		listaCamiones.add(c10);
+		listaCamiones.add(c11);
 	}
 
 	public ArrayList<Insumo> getListaInsumos() {
@@ -143,11 +169,39 @@ public class Listas {
 		return aux;
 	}
 	
-	public Object[] listaInsumosString() {
-		Object [] aux = new Object[this.listaInsumos.size()]; 
+	public Object[][] getBusquedaCamiones(){
+		Object[][] aux=new Object[this.listaCamiones.size()][4];
+		String liq = new String();
+		for(int i=0; i<this.listaCamiones.size(); i++) {
+			aux[i][0]=listaCamiones.get(i).getId();
+			aux[i][1]=listaCamiones.get(i).getDominio();
+			aux[i][2]=listaCamiones.get(i).getCapacidad();
+			if(listaCamiones.get(i).isAptoLiq()) {
+				liq="Si";
+			} else {
+				liq="No";
+			}
+			aux[i][3]=liq;
+		}
 		
+		return aux;
+	}
+	
+	public Object[][] getBusquedaPlantas(){
+		Object [][] aux=new Object[this.listaPlantas.size()][2];
+		
+		for(int i=0; i<this.listaPlantas.size(); i++) {
+			aux[i][0]=listaPlantas.get(i).getId();
+			aux[i][1]=listaPlantas.get(i).getNombre();
+		}
+		return aux;
+	}
+	
+	public Object[] listaInsumosString() {
+		Object [] aux = new Object[this.listaInsumos.size()+1]; 
+		aux[0]="Seleccione un insumo";
 		for(int i=0; i<this.listaInsumos.size(); i++) {
-			aux[i]=listaInsumos.get(i).getDescripcion();
+			aux[i+1]=listaInsumos.get(i).getDescripcion();
 		}
 		
 		return aux;
@@ -159,6 +213,41 @@ public class Listas {
 		}
 		return null;
 	}
+
+	public Insumo buscarInsumoNombre(String nombre) {
+		for(Insumo in:listaInsumos) {
+			if(in.getDescripcion().compareTo(nombre)==0) return in;
+		}
+		return null;
+	}
 	
+	public ArrayList<Ruta> getListaRutas() {
+		return listaRutas;
+	}
+
+	public void setListaRutas(ArrayList<Ruta> listaRutas) {
+		this.listaRutas = listaRutas;
+	}
+
+	public GrafoPlanta getGrafo() {
+		return grafo;
+	}
+
+	public void setGrafo(GrafoPlanta grafo) {
+		this.grafo = grafo;
+	}
 	
+	public Planta buscarPlanta(int id, String nombre) {
+		for(Planta pl:listaPlantas) {
+			if(pl.getId()==id && pl.getNombre().compareTo(nombre)==0) return pl;
+		}
+		return null;
+	}
+	
+	public Camion buscarCamion(String id, String dominio) {
+		for(Camion cam:listaCamiones) {
+			if(cam.getId().contains(id) && cam.getDominio().contains(dominio)) return cam;
+		}
+		return null;
+	}
 }

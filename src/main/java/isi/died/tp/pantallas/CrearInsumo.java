@@ -1,7 +1,5 @@
 package isi.died.tp.pantallas;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -12,10 +10,10 @@ import javax.swing.SwingConstants;
 import javax.swing.JComboBox;
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
+
+import isi.died.tp.datos.Datos;
 import isi.died.tp.dominio.UnidadMedida;
 import javax.swing.JRadioButton;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
 
 public class CrearInsumo {
 
@@ -24,36 +22,16 @@ public class CrearInsumo {
 	private JTextField tfDescripcion;
 	private JTextField tfCosto;
 	private JTextField tfStock;
+	private Datos datos;
 	
 	private final ButtonGroup buttonGroupRefrigerado = new ButtonGroup();
 	private final ButtonGroup buttonGroupLiquidos = new ButtonGroup();
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					CrearInsumo window = new CrearInsumo();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the application.
-	 */
-	public CrearInsumo() {
+	public CrearInsumo(Datos datos) {
+		this.datos=datos;
 		initialize();
 	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
 	private void initialize() {
 		frame = new JFrame();
 		frame.setTitle("Crear Insumo");
@@ -74,8 +52,7 @@ public class CrearInsumo {
 		JButton Atrás = new JButton("Atrás");
 		Atrás.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				GestionInsumos gInsumos = new GestionInsumos();
-				gInsumos.main(null);
+				new GestionInsumos(datos);
 				frame.dispose();
 			}
 		});
@@ -219,5 +196,7 @@ public class CrearInsumo {
 				tfVol.setVisible(false);
 			}
 		});
+		
+		frame.setVisible(true);
 	}
 }

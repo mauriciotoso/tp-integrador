@@ -6,9 +6,9 @@ public class Camion {
 		private String modelo;
 		private String dominio;
 		private int anio;
-		private float costoXKM;
+		private double costoXKM;
 		private boolean AptoLiq;
-		private float capacidad;
+		private double capacidad;
 		public String getId() {
 			return id;
 		}
@@ -39,10 +39,10 @@ public class Camion {
 		public void setAnio(int anio) {
 			this.anio = anio;
 		}
-		public float getCostoXKM() {
+		public double getCostoXKM() {
 			return costoXKM;
 		}
-		public void setCostoXKM(float costoXKM) {
+		public void setCostoXKM(double costoXKM) {
 			this.costoXKM = costoXKM;
 		}
 		public boolean isAptoLiq() {
@@ -51,14 +51,14 @@ public class Camion {
 		public void setAptoLiq(boolean aptoLiq) {
 			AptoLiq = aptoLiq;
 		}
-		public float getCapacidad() {
+		public double getCapacidad() {
 			return capacidad;
 		}
-		public void setCapacidad(float capacidad) {
+		public void setCapacidad(double capacidad) {
 			this.capacidad = capacidad;
 		}
-		public Camion(String id, String marca, String modelo, String dominio, int anio, float costoXKM, boolean aptoLiq,
-				float capacidad) {
+		public Camion(String id, String marca, String modelo, String dominio, int anio, double costoXKM, boolean aptoLiq,
+				double capacidad) {
 			super();
 			this.id = id;
 			this.marca = marca;

@@ -67,16 +67,22 @@ public class Planta {
 	
 	public boolean necesitaInsumo(Insumo insumo) {
 		
-		Stock stock=new Stock();
-		
-		for(int i=0; i<stocks.size(); i++) {
-			if (stocks.get(i).getInsumo()==insumo)
-				stock = stocks.get(i);
+		for(int i=0; i<stocks.size();i++) {
+			if (stocks.get(i).getInsumo().compareTo(insumo)==0 && stocks.get(i).getCantidad()<stocks.get(i).getPuntoPedido()) return true;
+			else return false;
 		}
-			
-		if (stock.getCantidad()<stock.getPuntoPedido())
-			return true;
+		
 		return false; 
 	}
 
+	public Object[][] getDatosStock(){
+		Object[][] p= new Object[this.stocks.size()][3];
+		
+		for(int i=0; i<this.stocks.size(); i++) {
+			p[i][0]= stocks.get(i).getInsumo().getDescripcion();
+			p[i][1]= stocks.get(i).getCantidad();
+			p[i][2]= stocks.get(i).getPuntoPedido();
+		}
+		return p;
+	}
 }

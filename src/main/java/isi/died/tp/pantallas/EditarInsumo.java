@@ -1,6 +1,6 @@
 package isi.died.tp.pantallas;
 
-import java.awt.EventQueue;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -14,6 +14,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import isi.died.tp.datos.Datos;
 import isi.died.tp.dominio.Insumo;
 import isi.died.tp.dominio.InsumoLiquido;
 import isi.died.tp.dominio.UnidadMedida;
@@ -27,38 +28,17 @@ public class EditarInsumo {
 	private JTextField tfCosto;
 	private JTextField tfStock;
 	private static Insumo seleccion;
+	private Datos datos;
 	
 	private final ButtonGroup buttonGroupRefrigerado = new ButtonGroup();
 	private final ButtonGroup buttonGroupLiquidos = new ButtonGroup();
-
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(Insumo insumo) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					EditarInsumo window = new EditarInsumo(insumo);
-					window.frame.setVisible(true);
-					}catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the application.
-	 */
-	public EditarInsumo(Insumo insumo) {
+	
+	public EditarInsumo(Insumo insumo, Datos datos) {
+		this.datos=datos;
 		seleccion=insumo;
 		initialize();
 	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
 	private void initialize() {
 		frame = new JFrame();
 		frame.setTitle("Editar Insumo");
@@ -83,8 +63,7 @@ public class EditarInsumo {
 		JButton Atrás = new JButton("Atrás");
 		Atrás.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				BuscarInsumos bInsumos = new BuscarInsumos();
-				bInsumos.main(null);
+				new BuscarInsumo(datos);
 				frame.dispose();
 			}
 		});
@@ -251,5 +230,7 @@ public class EditarInsumo {
 				tfVol.setVisible(false);
 			}
 		});
+		
+		frame.setVisible(true);
 	}
 }

@@ -1,6 +1,8 @@
 package isi.died.tp.grafo;
 
+import java.awt.Color;
 import java.awt.Graphics;
+import isi.died.tp.dominio.Ruta;
 
 public class AristaView {
 	
@@ -8,8 +10,11 @@ public class AristaView {
 	private VerticeView nodo1, nodo2;
 	private String nombre;
 	private int id;
+	private Ruta ruta;
+	private boolean pintar=false;
 	
-	public AristaView(VerticeView nodo1,VerticeView nodo2,String nombre,int id) {
+	public AristaView(VerticeView nodo1,VerticeView nodo2,String nombre,int id, Ruta ruta) {
+		this.ruta=ruta;
 		this.x1=nodo1.getX();
 		this.y1=nodo1.getY();
 		this.x2=nodo2.getX();
@@ -20,6 +25,27 @@ public class AristaView {
 		this.id=id;
 	}
 	
+	public AristaView(VerticeView nodo1,VerticeView nodo2,String nombre,int id, Ruta ruta,boolean pintar) {
+		this.ruta=ruta;
+		this.x1=nodo1.getX();
+		this.y1=nodo1.getY();
+		this.x2=nodo2.getX();
+		this.y2=nodo2.getY();
+		this.nodo1=nodo1;
+		this.nodo2=nodo2;
+		this.nombre=nombre;
+		this.id=id;
+		this.pintar=pintar;
+	}
+	
+	public boolean isPintar() {
+		return pintar;
+	}
+
+	public void setPintar(boolean pintar) {
+		this.pintar = pintar;
+	}
+
 	public int getId() {
 		return id;
 	}
@@ -29,6 +55,9 @@ public class AristaView {
 	}
 
 	public void pintar(Graphics g){
+		
+		g.setColor(Color.BLACK);
+		if(pintar) g.setColor(Color.RED);
 		g.drawLine(x1,y1,x2,y2);
 		
 		if(x1>x2 && y1>y2) g.drawString(nombre, x1-Math.abs((x1-x2)/2), y1- Math.abs((y1-y2)/2));
@@ -38,6 +67,9 @@ public class AristaView {
 		if(x1>x2 && y1<y2) g.drawString(nombre, x1-Math.abs((x1-x2)/2), y2- Math.abs((y1-y2)/2));
 
 		if(x1<x2 && y1>y2) g.drawString(nombre, x2-Math.abs((x1-x2)/2), y1- Math.abs((y1-y2)/2));
+		
+		g.setColor(Color.BLACK);
+	
 	}
 
 	public int getX1() {
@@ -95,7 +127,12 @@ public class AristaView {
 	public void setNodo2(VerticeView nodo2) {
 		this.nodo2 = nodo2;
 	}
-	
-	
 
+	public Ruta getRuta() {
+		return ruta;
+	}
+
+	public void setRuta(Ruta ruta) {
+		this.ruta = ruta;
+	}
 }
