@@ -69,7 +69,6 @@ public class Planta {
 		
 		for(int i=0; i<stocks.size();i++) {
 			if (stocks.get(i).getInsumo().compareTo(insumo)==0 && stocks.get(i).getCantidad()<stocks.get(i).getPuntoPedido()) return true;
-			else return false;
 		}
 		
 		return false; 
@@ -85,4 +84,11 @@ public class Planta {
 		}
 		return p;
 	}
+
+	@Override
+	public String toString() {
+		return nombre;
+	}
+	
+	
 }

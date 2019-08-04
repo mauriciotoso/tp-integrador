@@ -21,97 +21,104 @@ public class Datos {
 		listaStocks = new ArrayList<Stock>();
 		listaRutas = new ArrayList<Ruta>();
 		
-		Insumo i1=new Insumo("0","I1a",500,5.6,5000,false,UnidadMedida.UNIDAD);
-		Insumo i2=new Insumo("1","I2a",600,2.4,6000,false,UnidadMedida.UNIDAD);
-		Insumo i3=new Insumo("2","I3",1100,2,5000,false,UnidadMedida.UNIDAD);
-		Insumo i4=new Insumo("3","I4",200,1,100,false,UnidadMedida.UNIDAD);
-		Insumo i5=new Insumo("4","I5",100,5.6,200,false,UnidadMedida.UNIDAD);
-		Insumo i6=new Insumo("5","I6",600,2.4,40,false,UnidadMedida.UNIDAD);
-		Insumo i7=new Insumo("6","I1b",6100,2,5400,false,UnidadMedida.UNIDAD);
-		Insumo i8=new Insumo("7","I7",700,1,700,false,UnidadMedida.UNIDAD);
-		Insumo i9=new Insumo("8","I8",500,5.6,1000,false,UnidadMedida.UNIDAD);
-		Insumo i10=new Insumo("9","I2b",600,2.4,2000,false,UnidadMedida.UNIDAD);
-		Insumo i11=new Insumo("10","I9",700,2,700,false,UnidadMedida.UNIDAD);
-		Insumo i12=new Insumo("11","I10",300,1,300,false,UnidadMedida.UNIDAD);
+		listaPlantas.add(grafo.getAcopioPuerto());
+		listaPlantas.add(grafo.getAcopioFinal());
 		
-		listaInsumos.add(i1);
-		listaInsumos.add(i2);
-		listaInsumos.add(i3);
-		listaInsumos.add(i4);
-		listaInsumos.add(i5);
-		listaInsumos.add(i6);
-		listaInsumos.add(i7);
-		listaInsumos.add(i8);
-		listaInsumos.add(i9);
-		listaInsumos.add(i10);
-		listaInsumos.add(i11);
-		listaInsumos.add(i12);
+		//A partir de aca relleno de datos, lo de atras no tocar
 		
-		Planta p1= new Planta(1,"Planta A");
-		Planta p2= new Planta(2,"Planta B");
-		Planta p3= new Planta(3,"Planta C");
+		Insumo i1=new Insumo("0","I1a",0,5.6,5000,false,UnidadMedida.UNIDAD);
+		Insumo i2=new Insumo("1","I2a",0,2.4,6000,false,UnidadMedida.UNIDAD);
+		Insumo i3=new Insumo("2","I3",0,2,5000,false,UnidadMedida.UNIDAD);
+		Insumo i4=new Insumo("3","I4",0,1,100,false,UnidadMedida.UNIDAD);
+		Insumo i5=new Insumo("4","I5",0,5.6,200,false,UnidadMedida.UNIDAD);
+		Insumo i6=new Insumo("5","I6",0,2.4,40,false,UnidadMedida.UNIDAD);
+		Insumo i7=new Insumo("6","I1b",0,2,5400,false,UnidadMedida.UNIDAD);
+		Insumo i8=new Insumo("7","I7",0,1,700,false,UnidadMedida.UNIDAD);
+		Insumo i9=new Insumo("8","I8",0,5.6,1000,false,UnidadMedida.UNIDAD);
+		Insumo i10=new Insumo("9","I2b",0,2.4,2000,false,UnidadMedida.UNIDAD);
+		Insumo i11=new Insumo("10","I9",0,2,700,false,UnidadMedida.UNIDAD);
+		Insumo i12=new Insumo("11","I10",0,1,300,false,UnidadMedida.UNIDAD);
 		
-		listaPlantas.add(p1);
-		listaPlantas.add(p2);
-		listaPlantas.add(p3);
+		this.agregarInsumo(i1);
+		this.agregarInsumo(i2);
+		this.agregarInsumo(i3);
+		this.agregarInsumo(i4);
+		this.agregarInsumo(i5);
+		this.agregarInsumo(i6);
+		this.agregarInsumo(i7);
+		this.agregarInsumo(i8);
+		this.agregarInsumo(i9);
+		this.agregarInsumo(i10);
+		this.agregarInsumo(i11);
+		this.agregarInsumo(i12);
+		
+		Planta p1= new Planta(2,"Planta A");
+		Planta p2= new Planta(3,"Planta B");
+		Planta p3= new Planta(4,"Planta C");
+
+		this.agregarPlanta(p1);
+		this.agregarPlanta(p2);
+		this.agregarPlanta(p3);
+		
+		Ruta r1= new Ruta(0,11,60,40,this.getListaPlantas().get(0),this.getListaPlantas().get(1));
+		Ruta r2= new Ruta(1,5,20,20,this.getListaPlantas().get(0),p1);
+		Ruta r3= new Ruta(2,6,22,20,this.getListaPlantas().get(0),p2);
+		Ruta r4= new Ruta(3,14,180,40,p3,this.getListaPlantas().get(1));
+		Ruta r5= new Ruta(4,20,170,60,p2,this.getListaPlantas().get(1));
+		Ruta r6= new Ruta(5,10,180,40,p1,p3);
+		Ruta r7= new Ruta(6,22,170,60,p1,p2);
+		
+		this.agregarRuta(r1);
+		this.agregarRuta(r2);
+		this.agregarRuta(r3);
+		this.agregarRuta(r4);
+		this.agregarRuta(r5);
+		this.agregarRuta(r6);
+		this.agregarRuta(r7);
 		
 		Stock s1 = new Stock(0,200,100,i1);
 		Stock s2 = new Stock(1,100,500,i2);
 		Stock s3 = new Stock(2,600,500,i4);
 		
-		p1.agregarStock(s1);
-		p2.agregarStock(s2);
-		p2.agregarStock(s3);
+		this.agregarStock(p1,s1);
+		this.agregarStock(p2,s2);
+		this.agregarStock(p2,s3);
 		
-		listaStocks.add(s1);
-		listaStocks.add(s2);
-		listaStocks.add(s3);
+		Insumo i13=new Insumo("A","A1",0,300,600,false,UnidadMedida.UNIDAD);
+		Insumo i14=new Insumo("B","A2",0,200,900,false,UnidadMedida.UNIDAD);
+		Insumo i15=new Insumo("C","A3",0,100,500,false,UnidadMedida.UNIDAD);
+		Insumo i16=new Insumo("D","A4",0,200,600,false,UnidadMedida.UNIDAD);
 		
-		Planta acopioPuerto = grafo.getAcopioPuerto();
-		Planta acopioFinal = grafo.getAcopioFinal();
+		this.agregarInsumo(i13);
+		this.agregarInsumo(i14);
+		this.agregarInsumo(i15);
+		this.agregarInsumo(i16);
 		
-		Ruta r1= new Ruta(0,10,60,40,acopioPuerto,acopioFinal);
-		Ruta r2= new Ruta(1,5,20,20,acopioPuerto,p1);
-		Ruta r3= new Ruta(2,6,22,20,acopioPuerto,p2);
-		Ruta r4= new Ruta(3,14,180,40,p3,acopioFinal);
-		Ruta r5= new Ruta(4,20,170,60,p2,acopioFinal);
-		Ruta r6= new Ruta(5,10,180,40,p1,p3);
-		Ruta r7= new Ruta(6,22,170,60,p1,p2);
+		Stock s4 = new Stock(3,600,700,i13);
+		Stock s5 = new Stock(4,100,200,i14);
+		Stock s6 = new Stock(5,200,300,i15);
+		Stock s7 = new Stock(6,200,300,i16);
 		
-		listaRutas.add(r1);
-		listaRutas.add(r2);
-		listaRutas.add(r3);
-		listaRutas.add(r4);
-		listaRutas.add(r5);
-		listaRutas.add(r6);
-		listaRutas.add(r7);
+		this.agregarStock(p3,s4);
+		this.agregarStock(p3,s5);
+		this.agregarStock(p3,s6);
+		this.agregarStock(p3,s7);
 		
-		grafo.addNodo(acopioPuerto);
-		grafo.addNodo(acopioFinal);
-		grafo.addNodo(p1);
-		grafo.addNodo(p2);
-		grafo.addNodo(p3);
+		Camion c0 = new Camion("001","m1","mod1","AAA111",2010,50,true,400);
 		
-		grafo.conectar(acopioPuerto, acopioFinal, 0);
-		grafo.conectar(acopioPuerto, p1, 1);
-		grafo.conectar(acopioPuerto, p2, 2);
-		grafo.conectar(p3, acopioFinal, 3);
-		grafo.conectar(p2, acopioFinal, 4);
-		grafo.conectar(p1, p3, 5);
-		grafo.conectar(p1, p2, 6);
+		Camion c1 = new Camion("001","m1","mod1","AAA111",2010,50,true,300);
+		Camion c2 = new Camion("002","m1","mod2","AAA222",2011,50,false,400);
+		Camion c3 = new Camion("003","m1","mod3","AAA333",2012,50,true,5400);
+		Camion c4 = new Camion("004","m2","mod1","AAA444",2009,50,false,300);
+		Camion c5 = new Camion("005","m2","mod2","AAA555",2008,50,true,600);
+		Camion c6 = new Camion("006","m2","mod3","BBB111",2010,50,false,344);
+		Camion c7 = new Camion("007","m3","mod1","BBB222",2011,50,true,744);
+		Camion c8 = new Camion("008","m3","mod2","BBB333",2012,50,false,444);
+		Camion c9 = new Camion("009","m3","mod3","BBB444",2013,50,true,554);
+		Camion c10 = new Camion("010","m4","mod1","BBB555",2014,50,false,65);
+		Camion c11 = new Camion("011","m4","mod2","CCC111",2015,50,true,104);
 		
-		Camion c1 = new Camion("001","m1","mod1","AAA111",2010,50,true,3.4);
-		Camion c2 = new Camion("002","m1","mod2","AAA222",2011,50,false,4.4);
-		Camion c3 = new Camion("003","m1","mod3","AAA333",2012,50,true,5);
-		Camion c4 = new Camion("004","m2","mod1","AAA444",2009,50,false,3);
-		Camion c5 = new Camion("005","m2","mod2","AAA555",2008,50,true,6.7);
-		Camion c6 = new Camion("006","m2","mod3","BBB111",2010,50,false,3.4);
-		Camion c7 = new Camion("007","m3","mod1","BBB222",2011,50,true,7);
-		Camion c8 = new Camion("008","m3","mod2","BBB333",2012,50,false,4);
-		Camion c9 = new Camion("009","m3","mod3","BBB444",2013,50,true,5.5);
-		Camion c10 = new Camion("010","m4","mod1","BBB555",2014,50,false,6.5);
-		Camion c11 = new Camion("011","m4","mod2","CCC111",2015,50,true,10);
-		
+		listaCamiones.add(c0);
 		listaCamiones.add(c1);
 		listaCamiones.add(c2);
 		listaCamiones.add(c3);
@@ -125,6 +132,26 @@ public class Datos {
 		listaCamiones.add(c11);
 	}
 
+	
+	public void agregarInsumo(Insumo insumo) {
+		listaInsumos.add(insumo);
+	}
+	
+	public void agregarPlanta(Planta planta) {
+		listaPlantas.add(planta);
+		grafo.addNodo(planta);
+	}
+	
+	public void agregarStock(Planta planta,Stock stock) {
+		listaStocks.add(stock);
+		planta.agregarStock(stock);
+	}
+	
+	public void agregarRuta(Ruta ruta) {
+		listaRutas.add(ruta);
+		grafo.conectar(ruta.getInicio().getValor(),ruta.getFin().getValor(),ruta.getDistancia(),ruta.getPesoMaxEnToneladas());
+	}
+	
 	public ArrayList<Insumo> getListaInsumos() {
 		return listaInsumos;
 	}
@@ -134,8 +161,13 @@ public class Datos {
 	}
 
 	public ArrayList<Planta> getListaPlantas() {
-		return listaPlantas;
+		return grafo.getVertices();
 	}
+	
+	public ArrayList<Planta> plantasSinInsumo(Insumo insumo){
+		return grafo.plantasSinInsumo(insumo);
+	}
+	
 
 	public void setListaPlantas(ArrayList<Planta> listaPlantas) {
 		this.listaPlantas = listaPlantas;
@@ -207,6 +239,27 @@ public class Datos {
 		return aux;
 	}
 	
+	public Object[] listaPlantasString() {
+		Object [] aux = new Object[this.listaPlantas.size()-1]; 
+		aux[0]="Seleccione una planta";
+		for(int i=2; i<this.listaPlantas.size(); i++) {
+			aux[i-1]=listaPlantas.get(i).getNombre();
+		}
+		
+		return aux;
+	}
+	
+	/*
+	public Object[] listaCamionesString() {
+		Object [] aux = new Object[this.listaCamiones.size()+1]; 
+		aux[0]="Seleccione un insumo";
+		for(int i=0; i<this.listaCamiones.size(); i++) {
+			aux[i+1]=listaCamiones.get(i).getDescripcion();
+		}
+		
+		return aux;
+	}*/
+	
 	public Insumo buscarInsumo(String nombre, double costo, int stock) {
 		for(Insumo in:listaInsumos) {
 			if(in.getDescripcion().compareTo(nombre)==0 && in.getCosto()==costo && in.getStock()==stock) return in;
@@ -249,5 +302,24 @@ public class Datos {
 			if(cam.getId().contains(id) && cam.getDominio().contains(dominio)) return cam;
 		}
 		return null;
+	}
+	
+	public ArrayList<Ruta> rutasPlantas(ArrayList<Planta> listaDePlantas){
+		
+		ArrayList<Ruta> listaDeRutas = new ArrayList<>();
+		
+		int cont=1;
+		for(Ruta ruta:listaRutas) {
+			cont=1;
+			for(Planta planta:listaDePlantas) {
+				if(cont<listaDePlantas.size()) {
+					if((ruta.getInicio().getValor().getId()==listaDePlantas.get(cont-1).getId())&&(ruta.getFin().getValor().getId()==listaDePlantas.get(cont).getId())){
+						listaDeRutas.add(ruta);
+					}
+				}
+				cont++;
+			}
+		}
+		return listaDeRutas;
 	}
 }

@@ -43,7 +43,8 @@ public class GestionLogistica {
 		JButton gestionInsumos = new JButton("Flujo Máximo de Red");
 		gestionInsumos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				new FlujoMaximo(datos);
+				frame.dispose();
 			}
 		});
 		gestionInsumos.setBounds(230, 60, 130, 40);
@@ -68,7 +69,26 @@ public class GestionLogistica {
 		atras.setBounds(10, 226, 100, 25);
 		frame.getContentPane().add(atras);
 		
+		JButton btnSeleccionEnvio = new JButton("Selección Envio");
+		btnSeleccionEnvio.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new SeleccionEnvio(datos);
+				frame.dispose();
+			}
+		});
+		btnSeleccionEnvio.setBounds(230, 120, 130, 40);
+		frame.getContentPane().add(btnSeleccionEnvio);
+		
+		JButton btnCaminosEntrePlantas = new JButton("Caminos entre plantas");
+		btnCaminosEntrePlantas.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				new CaminoPlantaInicial(datos);
+				frame.dispose();
+			}
+		});
+		btnCaminosEntrePlantas.setBounds(142, 171, 130, 40);
+		frame.getContentPane().add(btnCaminosEntrePlantas);
+		
 		frame.setVisible(true);
 	}
-
 }

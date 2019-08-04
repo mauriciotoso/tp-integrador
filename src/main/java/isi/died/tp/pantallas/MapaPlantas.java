@@ -32,13 +32,13 @@ public class MapaPlantas {
 		Object [] listaInsumos = datos.listaInsumosString();
 	
 		ventana = new JFrame("Mapa de Plantas");
-		ventana.setSize(1200,500);
+		ventana.setSize(1300,500);
 		ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		ventana.setLocationRelativeTo(null);
 		ventana.getContentPane().setLayout(null);
 		
-		lienzo = new Lienzo();
+		lienzo = new Lienzo(datos);
 		lienzo.setBackground(Color.LIGHT_GRAY);
 		lienzo.setForeground(Color.BLACK);
 		lienzo.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
@@ -57,19 +57,19 @@ public class MapaPlantas {
 		ventana.getContentPane().add(lblSeleccioneElInsumo);
 		
 		JLabel lblPlantasQue = new JLabel("- Plantas que necesiten ese insumo.");
-		lblPlantasQue.setBounds(910, 36, 186, 14);
+		lblPlantasQue.setBounds(910, 36, 364, 14);
 		ventana.getContentPane().add(lblPlantasQue);
 		
 		JLabel lblElMejor = new JLabel("- El mejor camino para ir desde el acopio puerto");
 		lblElMejor.setHorizontalAlignment(SwingConstants.LEFT);
 		lblElMejor.setToolTipText("");
-		lblElMejor.setBounds(910, 61, 264, 14);
+		lblElMejor.setBounds(910, 61, 364, 14);
 		ventana.getContentPane().add(lblElMejor);
 		
 		JLabel lblHastaElAcopio = new JLabel("hasta el acopio final pasando por todas esas plantas.");
 		lblHastaElAcopio.setToolTipText("");
 		lblHastaElAcopio.setHorizontalAlignment(SwingConstants.LEFT);
-		lblHastaElAcopio.setBounds(910, 81, 264, 14);
+		lblHastaElAcopio.setBounds(910, 81, 364, 14);
 		ventana.getContentPane().add(lblHastaElAcopio);
 		
 		JButton btnBuscar = new JButton("Buscar");
@@ -77,12 +77,13 @@ public class MapaPlantas {
 			public void actionPerformed(ActionEvent e) {
 				if(comboBox.getSelectedIndex()!=0) {
 				insumoBuscar=datos.buscarInsumoNombre((String)listaInsumos[comboBox.getSelectedIndex()]);
+				System.out.println(insumoBuscar);
 				new MapaPlantasConInsumo(insumoBuscar,datos);
 				ventana.dispose();
 		}
 			}
 		});
-		btnBuscar.setBounds(1085, 477, 89, 23);
+		btnBuscar.setBounds(1174, 426, 100, 25);
 		ventana.getContentPane().add(btnBuscar);
 		
 		JButton btnAtrs = new JButton("Atrás");
@@ -92,7 +93,7 @@ public class MapaPlantas {
 				ventana.dispose();
 			}
 		});
-		btnAtrs.setBounds(910, 477, 89, 23);
+		btnAtrs.setBounds(910, 426, 100, 25);
 		ventana.getContentPane().add(btnAtrs);
 		
 		ventana.setVisible(true);
